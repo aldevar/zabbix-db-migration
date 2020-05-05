@@ -1,0 +1,92 @@
+version: '3'
+services:
+    postgres-server:
+        image: postgres:latest
+        volumes:
+            - /root/zabbix/postgres/lib/postgresql/data:/var/lib/postgresql/data:rw
+        environment:
+            - POSTGRES_USER=zabbix
+            - POSTGRES_PASSWORD=zabbix
+            - POSTGRES_DB=zabbix
+
+    zabbix-server-psql:
+        image: zabbix/zabbix-server-pgsql:latest
+        restart: always
+        environment:
+            - DB_SERVER_HOST=postgres-server
+            - POSTGRES_USER=zabbix
+            - POSTGRES_PASSWORD=zabbix
+            - POSTGRES_DB=zabbix
+        links:
+            - postgres-server:postgres-server
+        depends_on:
+            - postgres-server
+        ports:
+            - 11051:10051
+
+    zabbix-web-psql:
+        image: zabbix/zabbix-web-nginx-pgsql:latest
+        restart: always
+        environment:
+            - DB_SERVER_HOST=postgres-server
+            - POSTGRES_USER=zabbix
+            - POSTGRES_PASSWORD=zabbix
+            - POSTGRES_DB=zabbix
+        links:
+            - postgres-server:postgres-server
+            - zabbix-server-psql:zabbix-server
+        depends_on:
+            - postgres-server
+            - zabbix-server-psql
+        ports:
+            - 9080:8080
+            - 9443:8443
+
+    mysql-server:
+        image: percona
+        restart: always
+        environment:
+            - MYSQL_DATABASE=zabbix
+            - MYSQL_USER=zabbix
+            - MYSQL_PASSWORD=zabbix_pwd
+            - MYSQL_ROOT_PASSWORD=root_pwd
+        volumes:
+            - /root/zabbix/percona/lib/mysql:/var/lib/mysql:z
+            - /root/zabbix/percona/etc/my.cnf.d:/etc/my.cnf.d:z
+            - /root/zabbix/percona/etc/percona-server.cnf:/etc/percona-server.cnf:z
+        command: [mysqld, --character-set-server=utf8, --collation-server=utf8_bin]
+
+    zabbix-server-mysql:
+        image: zabbix/zabbix-server-mysql:latest
+        restart: always
+        environment:
+            - DB_SERVER_HOST=mysql-server
+            - MYSQL_DATABASE=zabbix
+            - MYSQL_USER=zabbix
+            - MYSQL_PASSWORD=zabbix_pwd
+            - MYSQL_ROOT_PASSWORD=root_pwd
+        links:
+            - mysql-server:mysql-server
+        ports:
+            - 10051:10051
+        depends_on:
+            - mysql-server
+
+    zabbix-web-mysql:
+        image: zabbix/zabbix-web-nginx-mysql:latest
+        restart: always
+        environment:
+            - DB_SERVER_HOST=mysql-server
+            - MYSQL_DATABASE=zabbix
+            - MYSQL_USER=zabbix
+            - MYSQL_PASSWORD=zabbix_pwd
+            - MYSQL_ROOT_PASSWORD=root_pwd
+        links:
+            - mysql-server:mysql-server
+            - zabbix-server-mysql:zabbix-server
+        depends_on:
+            - mysql-server
+            - zabbix-server-mysql
+        ports:
+            - 8080:8080
+            - 8443:8443
