@@ -8,7 +8,7 @@ services:
             - POSTGRES_USER=zabbix
             - POSTGRES_PASSWORD=zabbix
             - POSTGRES_DB=zabbix
-
+    
     zabbix-server-psql:
         image: zabbix/zabbix-server-pgsql:latest
         restart: always
@@ -65,6 +65,7 @@ services:
             - MYSQL_USER=zabbix
             - MYSQL_PASSWORD=zabbix_pwd
             - MYSQL_ROOT_PASSWORD=root_pwd
+            - ZBX_CACHESIZE=64M
         links:
             - mysql-server:mysql-server
         ports:
@@ -81,6 +82,8 @@ services:
             - MYSQL_USER=zabbix
             - MYSQL_PASSWORD=zabbix_pwd
             - MYSQL_ROOT_PASSWORD=root_pwd
+            - ZBX_MEMORYLIMIT=256M
+            - ZBX_UPLOADMAXFILESIZE=4M
         links:
             - mysql-server:mysql-server
             - zabbix-server-mysql:zabbix-server
@@ -90,3 +93,4 @@ services:
         ports:
             - 8080:8080
             - 8443:8443
+
