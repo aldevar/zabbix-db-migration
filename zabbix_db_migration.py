@@ -9,12 +9,15 @@ dstzaburl = "http://localhost:9080"
 dstzabuser = 'Admin'
 dstzabpass = 'zabbix'
 
-srczapi = ZabbixAPI(srczaburl)
-srczapi.login(srczabuser,
-              srczabpass)
-dstzapi = ZabbixAPI(dstzaburl)
-dstzapi.login(dstzabuser,
-              dstzabpass)
+def login():
+    srczapi = ZabbixAPI(srczaburl)
+    srczapi.login(srczabuser,
+                srczabpass)
+    dstzapi = ZabbixAPI(dstzaburl)
+    dstzapi.login(dstzabuser,
+                dstzabpass)
+
+
 
 def usergroups_import():
     with open('usergroups.json', 'r') as f:
@@ -159,19 +162,24 @@ def configuration_import():
     print(res)
 
 
-def users_export()
+def users_export():
+    pass
 
 
-def users_import()
+def users_import():
+    pass
 
 
-def maintenances_export()
+def maintenances_export():
+    pass
 
 
-def maintenances_import()
+def maintenances_import():
+    pass
 
 
 if __name__ == '__main__':
+    login()
     clean_destination()
     hostgroups_export()
     hostgroups_import()

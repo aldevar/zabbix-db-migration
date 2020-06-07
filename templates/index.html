@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" type="text/css" href="static/css/bootstrap.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=100%, initial-scale=1.0">
+    <title>Zabbix Mysql - PostgreSQL migration</title>
+</head>
+<body>
+    <div class="text-center mb-5" style="background-color: #D40000;">
+        <a href="/">
+            <img src="{{ url_for('static', filename='img/Zabbix_logo.png') }}" class="img-fluid" alt="">
+        </a>
+        
+        </div>
+
+        <p style="text-align: center; margin-bottom: 5%;">Zabbix migration tool from MySQL to PostgreSQL mainly using the Zabbix API</p>
+        <div class="container">
+            <div class="row">
+              <div class="col-sm">
+                  <h3 style="text-align: center; margin-bottom: 5%;">MySQL server informations</h3>
+                <form action="migrate", method="POST">
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Zabbix URL</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="http://localhost:8080" name="srcurl">
+                      </div>
+                      <div class="form-group">
+                        <label for="formGroupExampleInput2">Username</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Admin" name="srcuser">
+                      </div>
+                    <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="zabbix" name="srcpass">
+                    </div>
+    
+                    
+              
+              </div>
+              <div class="col-sm">
+                <h3 style="text-align: center; margin-bottom: 5%;">PostgreSQL server informations</h3>
+                
+                    <div class="form-group">
+                        <label for="formGroupExampleInput">Zabbix URL</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="http://localhost:9080" name="dsturl">
+                      </div>
+                      <div class="form-group">
+                        <label for="formGroupExampleInput2">Username</label>
+                        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Admin" name="dstuser">
+                      </div>
+                    <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="zabbix" name="dstpass">
+                    </div>
+                </div>
+                    
+              
+              
+            </div>
+            <div class="col-md-12 text-center">
+                <button style="margin-top: 2%;" type="submit" class="btn btn-primary">Migrate</button>
+                </form>
+            </div>
+           
+          </div>
+            
+</body>
+</html>
