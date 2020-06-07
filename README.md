@@ -20,5 +20,13 @@ This project aims to provide a Zabbix migration tool from MySQL to PostresQL mai
 | Monitoring -> Screens                           | configuration.export | configuration.import  |
 | Monitoring -> Maps                              | configuration.export | configuration.import  |
 
+## Use
+
+```
+python app.py
+```
+
+![flask](/static/img/flask.png "bootstrap flask")
+
 
 
