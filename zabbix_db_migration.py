@@ -1,7 +1,7 @@
 from pyzabbix import ZabbixAPI, ZabbixAPIException
 import json
 
-srczaburl = "http://localhost:8080"
+srczaburl = "http://localhost"
 srczabuser = 'Admin'
 srczabpass = 'zabbix'
 
@@ -9,13 +9,11 @@ dstzaburl = "http://localhost:9080"
 dstzabuser = 'Admin'
 dstzabpass = 'zabbix'
 
-def login():
-    srczapi = ZabbixAPI(srczaburl)
-    srczapi.login(srczabuser,
-                srczabpass)
-    dstzapi = ZabbixAPI(dstzaburl)
-    dstzapi.login(dstzabuser,
-                dstzabpass)
+
+srczapi = ZabbixAPI(srczaburl)
+srczapi.login(srczabuser, srczabpass)
+dstzapi = ZabbixAPI(dstzaburl)
+dstzapi.login(dstzabuser, dstzabpass)
 
 
 
@@ -179,7 +177,6 @@ def maintenances_import():
 
 
 if __name__ == '__main__':
-    login()
     clean_destination()
     hostgroups_export()
     hostgroups_import()
