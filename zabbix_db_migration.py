@@ -10,10 +10,10 @@ dstzabuser = 'Admin'
 dstzabpass = 'zabbix'
 
 
-srczapi = ZabbixAPI(srczaburl)
+"""srczapi = ZabbixAPI(srczaburl)
 srczapi.login(srczabuser, srczabpass)
 dstzapi = ZabbixAPI(dstzaburl)
-dstzapi.login(dstzabuser, dstzabpass)
+dstzapi.login(dstzabuser, dstzabpass)"""
 
 
 
