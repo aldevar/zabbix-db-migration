@@ -1,7 +1,7 @@
 from pyzabbix import ZabbixAPI, ZabbixAPIException
 import json
 
-srczaburl = "http://localhost"
+srczaburl = "http://localhost:8080"
 srczabuser = 'Admin'
 srczabpass = 'zabbix'
 
