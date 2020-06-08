@@ -28,8 +28,8 @@ def migrate():
         zabbix.usergroups_import()
         return render_template("done.html")
 
-    except:
-        return render_template("error.html")
+    except Exception as e:
+        return render_template("error.html", error=e)
 
     
 
