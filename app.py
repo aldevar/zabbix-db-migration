@@ -21,8 +21,7 @@ def migrate():
     zabbix.hostgroups_export()
     zabbix.hostgroups_import()
     zabbix.proxies_export_import()
-    zabbix.configuration_export()
-    zabbix.configuration_import()
+    zabbix.configuration_import(zabbix.configuration_export())
     zabbix.usergroups_export()
     zabbix.usergroups_import()
 

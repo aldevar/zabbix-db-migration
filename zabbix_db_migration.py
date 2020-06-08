@@ -135,10 +135,10 @@ def configuration_export():
 
     with open('config-export.json', 'w') as f:
         json.dump(config, f, indent=4)
+    return config
 
 
-
-def configuration_import():
+def configuration_import(config):
     ## TODO : Proxies must be imported first
     res = dstzapi.confimport(confformat='json', source=config,
                              rules={'hosts':{'createMissing': True, 'updateExisting': True},
@@ -181,8 +181,8 @@ if __name__ == '__main__':
     hostgroups_export()
     hostgroups_import()
     proxies_export_import()
-    configuration_export()
-    configuration_import()
+    # configuration_export()
+    configuration_import(configuration_export())
     usergroups_export()
     usergroups_import()
 
