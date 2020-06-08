@@ -32,10 +32,11 @@ def migrate():
         return render_template("error.html", error=e)
 
     
-
 def _getIpAddress():
     return socket.gethostbyname(socket.gethostname())
 
+
 if __name__ == "__main__":
     app.run(debug=True, host=_getIpAddress())
+    
 
