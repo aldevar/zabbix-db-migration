@@ -86,19 +86,38 @@ def clean_destination():
     on target zabbix installation
     '''
     templates = dstzapi.template.get(output='templateid')
-    print(templates)
-    templatesids = [templ['templateid'] for templ in templates]
-    print(templatesids)
+    if templates:
+        print(f"[Templates] - {templates}")
+        templatesids = [templ['templateid'] for templ in templates]
+        for templateid in templatesids:
+            res = dstzapi.template.delete(templateid)
+            print(f"[Deleted] - {res}")
+    else:
+        print("[Templates] - No templates to delete!")
+    
     hosts = dstzapi.host.get(output='hostid')
-    print(hosts)
-    hostsids = [h['hostid'] for h in hosts]
-    print(hostsids)
-    for templateid in templatesids:
-        res1 = dstzapi.template.delete(templateid)
-        print(res1)
-    for hostid in hostsids:
-        res2 = dstzapi.host.delete(hostid)
-        print(res2)
+    if hosts:
+        print(f"[Hosts] - {hosts}")
+        hostsids = [h['hostid'] for h in hosts]
+        for hostid in hostsids:
+            res = dstzapi.host.delete(hostid)
+            print(f"[Deleted] - {res}")
+    else:
+        print("[Hosts] - No hosts to delete!")
+
+    hostgroups = dstzapi.hostgroup.get(output='groupid')
+    if hostgroups:
+        print(f"[Hostgroup] - {hostgroups}")
+        hostgroupids = [hg['groupid'] for hg in hostgroups]
+        for hostgroupid in hostgroupids:
+            try:
+                res = dstzapi.hostgroup.delete(hostgroupid)
+                print(f"[Deleted] - {res}")
+            except ZabbixAPIException as e:
+                print(f"[WARNING] - {e.error['data']}")
+                pass
+    else:
+        print("[Hostgroups] - No hostgroups to delete!")
     
 
 def configuration_export():
