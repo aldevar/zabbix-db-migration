@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import zabbix_db_migration as zabbix
+import socket
 
 app = Flask(__name__)
 
@@ -29,6 +30,9 @@ def migrate():
 
     return "DONE"
 
+def _getIpAddress():
+    return socket.gethostbyname(socket.gethostname())
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host=_getIpAddress())
 
