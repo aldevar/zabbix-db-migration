@@ -3,12 +3,12 @@ services:
     postgres-server:
         image: postgres:latest
         volumes:
-            - /root/zabbix/postgres/lib/postgresql/data:/var/lib/postgresql/data:rw
+            - ./postgres/lib/postgresql/data:/var/lib/postgresql/data:rw
         environment:
             - POSTGRES_USER=zabbix
             - POSTGRES_PASSWORD=zabbix
             - POSTGRES_DB=zabbix
-    
+
     zabbix-server-psql:
         image: zabbix/zabbix-server-pgsql:latest
         restart: always
@@ -43,17 +43,17 @@ services:
             - 9443:8443
 
     mysql-server:
+
         image: percona
         restart: always
+        user: "999:999"
         environment:
             - MYSQL_DATABASE=zabbix
             - MYSQL_USER=zabbix
             - MYSQL_PASSWORD=zabbix_pwd
             - MYSQL_ROOT_PASSWORD=root_pwd
         volumes:
-            - /root/zabbix/percona/lib/mysql:/var/lib/mysql:z
-            - /root/zabbix/percona/etc/my.cnf.d:/etc/my.cnf.d:z
-            - /root/zabbix/percona/etc/percona-server.cnf:/etc/percona-server.cnf:z
+            - ./percona/lib/mysql:/var/lib/mysql:rw
         command: [mysqld, --character-set-server=utf8, --collation-server=utf8_bin]
 
     zabbix-server-mysql:
@@ -93,4 +93,3 @@ services:
         ports:
             - 8080:8080
             - 8443:8443
-
