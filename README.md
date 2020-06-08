@@ -25,8 +25,8 @@ This project aims to provide a Zabbix migration tool from MySQL to PostresQL mai
 ```
 pip install -r requirement.txt
 python app.py
-Go to http://localhost:5000/
 ```
+Go to http://localhost:5000/
 
 ![flask](/static/img/flask.png "bootstrap flask")
 
